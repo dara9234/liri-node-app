@@ -2,6 +2,8 @@ require("dotenv").config();
 
 
 var keys = require("./keys.js");
+let command=process.argv[2];
+let search= process.argv.slice(3).join(" ");
 
 
 
@@ -44,9 +46,13 @@ var axios = require("axios");
 //var searchedMovie=function(movieName){
 
 //Script and API for searching the movie attributes
-let movieName= process.argv.slice(2).join(" ");
+//let command=process.argv[2];
+//let search= process.argv.slice(3).join(" ");
+
+console.log(command);
+console.log(search);
 //runnin a request with axios to the OMDB API with the movie specified
-axios.get(`http://www.omdbapi.com/?t=${movieName}&y=&plot=short&apikey=trilogy`).then(
+axios.get(`http://www.omdbapi.com/?t=${search}&y=&plot=short&apikey=trilogy`).then(
   function(response) {
     console.log("Title of the movie is: " + response.data.Title);
     console.log("Year the movie came out is: " + response.data.Year);
@@ -64,7 +70,11 @@ axios.get(`http://www.omdbapi.com/?t=${movieName}&y=&plot=short&apikey=trilogy`)
 
 // Include the axios npm package (Don't forget to run "npm install axios" in this folder first!)
 var axios = require("axios");
-let search= process.argv.slice(2).join(" ");
+//let command=process.argv[2];
+//let search= process.argv.slice(3).join(" ");
+
+console.log(command);
+console.log(search);
 
 // Then run a request with axios to the bandsintown API with the concert specified
 axios.get(`https://rest.bandsintown.com/artists/"${search}/events?app_id=codingbootcamp`).then(
@@ -94,8 +104,8 @@ var choose = function (caseData, functionData) {
   }
 }
 
-var loadCmd = function (argOne, argTwo) {
-  choose(argOne, argTwo);
-};
+//var loadCmd = function (argOne, argTwo) {
+  //choose(argOne, argTwo);
+//};
 
-loadCmd(process.argv[2], process.argv[3]);
+//loadCmd(process.argv[2], process.argv[3]);

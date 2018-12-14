@@ -1,6 +1,11 @@
 // Include the axios npm package (Don't forget to run "npm install axios" in this folder first!)
 var axios = require("axios");
-let search= process.argv.slice(2).join(" ");
+let command=process.argv[2];
+let search= process.argv.slice(3).join(" ");
+
+
+console.log(command);
+console.log(search);
 
 // Then run a request with axios to the bandsintown API with the concert specified
 axios.get(`https://rest.bandsintown.com/artists/"${search}/events?app_id=codingbootcamp`).then(
