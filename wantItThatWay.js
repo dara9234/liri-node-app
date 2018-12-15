@@ -30,6 +30,8 @@ var doWhatItSays = function () {
 
     });
 
+
+
     //creating switch case
     var choose = function (caseData, functionData) {
         switch (caseData) {
@@ -44,10 +46,10 @@ var doWhatItSays = function () {
         }
     }
 
-    var loadCmd = function (argOne, argTwo) {
+    var loadComand = function (argOne, argTwo) {
         choose(argOne, argTwo);
     };
 
-    loadCmd(process.argv[2], process.argv[3]);
+    loadCommand(process.argv[2], process.argv[3]);
 
 }
