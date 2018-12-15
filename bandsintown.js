@@ -8,14 +8,23 @@ console.log(command);
 console.log(search);
 
 // Then run a request with axios to the bandsintown API with the concert specified
-axios.get(`https://rest.bandsintown.com/artists/"${search}/events?app_id=codingbootcamp`).then(
+axios.get(`https://rest.bandsintown.com/artists/${search}/events?app_id=codingbootcamp`).then(
   function(response) {
-    console.log("Name of the venue is: " + response.data.venue);
-    console.log("Venue location is: " + response.data.city);
+
+    // If the axios was successful...
+    // Then log the body from the site!
+    console.log(response.data);
+    console.log(JSON.stringify(data, null, 2));
+    console.log("Name of the venue is: " + response.data.venue.name);
+    console.log("Venue location is: " + response.data.venue.city);
     console.log("Date of the Event is: " + moment(response.data.datetime).format("MM/DD/YYYY"));
+  });
+  
+
+    
     
    
-  }
+  
  
-);
+
 

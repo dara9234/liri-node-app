@@ -77,10 +77,10 @@ console.log(command);
 console.log(search);
 
 // Then run a request with axios to the bandsintown API with the concert specified
-axios.get(`https://rest.bandsintown.com/artists/"${search}/events?app_id=codingbootcamp`).then(
+axios.get(`https://rest.bandsintown.com/artists/${search}/events?app_id=codingbootcamp`).then(
   function(response) {
-    console.log("Name of the venue is: " + response.data.venue);
-    console.log("Venue location is: " + response.data.city);
+    console.log("Name of the venue is: " + response.data.venue.name);
+    console.log("Venue location is: " + response.data.venue.city);
     console.log("Date of the Event is: " + moment(response.data.datetime).format("MM/DD/YYYY"));
     
    
@@ -104,8 +104,8 @@ var choose = function (caseData, functionData) {
   }
 }
 
-//var loadCmd = function (argOne, argTwo) {
-  //choose(argOne, argTwo);
-//};
+var loadCmd = function (argOne, argTwo) {
+  choose(argOne, argTwo);
+};
 
-//loadCmd(process.argv[2], process.argv[3]);
+loadCmd(process.argv[2], process.argv[3]);

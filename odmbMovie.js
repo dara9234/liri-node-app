@@ -1,4 +1,5 @@
-// Include the axios npm package (Don't forget to run "npm install axios" in this folder first!)
+// Basic Node application for requesting data from the OMDB website via axios
+// Here we incorporate the "axios" npm package
 var axios = require("axios");
 let command=process.argv[2];
 let search= process.argv.slice(3).join(" ");
