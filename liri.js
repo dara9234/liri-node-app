@@ -17,7 +17,9 @@ var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 
 var searchedSong = function (songName) {
-
+if (!songName){
+  songName = "The Sign"
+}
   spotify.search({ type: 'track', query: songName }, function (err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
@@ -32,6 +34,10 @@ var searchedSong = function (songName) {
       console.log('Album Name: ' + songs[i].album.name);
 
     }
+
+     // Defualt for Spotify
+    
+    
     //console.log(data);
     //console.log(JSON.stringify(data, null, 2));
     //console.log(data.tracks.items[0]);
@@ -47,6 +53,9 @@ var searchedMovie = function () {
   //Script and API for searching the movie attributes
   //let command=process.argv[2];
   let search = process.argv.slice(3).join("+");
+  if (!search){
+    search = "Mr. Nobody"
+  }
 
   //console.log(command);
   //console.log(search);
