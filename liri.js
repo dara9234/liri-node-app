@@ -1,6 +1,4 @@
 require("dotenv").config();
-
-
 var keys = require("./keys.js");
 var moment = require("moment");
 var axios = require("axios");
@@ -17,9 +15,9 @@ var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 
 var searchedSong = function (songName) {
-if (!songName){
-  songName = "The Sign"
-}
+  if (!songName) {
+    songName = "The Sign"
+  }
   spotify.search({ type: 'track', query: songName }, function (err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
@@ -35,12 +33,6 @@ if (!songName){
 
     }
 
-     // Defualt for Spotify
-    
-    
-    //console.log(data);
-    //console.log(JSON.stringify(data, null, 2));
-    //console.log(data.tracks.items[0]);
   });
 
 }
@@ -49,30 +41,40 @@ if (!songName){
 // creating a function that takes in user's movie search argument and display the requsted attributes
 
 var searchedMovie = function () {
-
   //Script and API for searching the movie attributes
-  //let command=process.argv[2];
+
   let search = process.argv.slice(3).join("+");
-  if (!search){
+  if (!search) {
     search = "Mr. Nobody"
   }
 
-  //console.log(command);
-  //console.log(search);
   //runnin a request with axios to the OMDB API with the movie specified
   axios.get(`http://www.omdbapi.com/?t=${search}&y=&plot=short&apikey=trilogy`).then(
     function (response) {
-      console.log("Title of the movie is: " + response.data.Title);
-      console.log("Year the movie came out is: " + response.data.Year);
-      console.log("The movie's rating is: " + response.data.imdbRating);
-      console.log("Rotten Tomatoes Rating of the movie is: " + response.data.Ratings[1].Value);
-      console.log("Country where the movie was produced is: " + response.data.Country);
-      console.log("Language of the movie is: " + response.data.Language);
-      console.log("Plot of the movie is: " + response.data.Plot);
-      console.log("Actors in the movie are: " + response.data.Actors);
+      var movieInfo = [
+        "Title of the movie is: " + response.data.Title,
+        "Year the movie came out is: " + response.data.Year,
+        "The movie's rating is: " + response.data.imdbRating,
+        "Rotten Tomatoes Rating of the movie is: " + response.data.Ratings[1].Value,
+        "Country where the movie was produced is: " + response.data.Country,
+        "Language of the movie is: " + response.data.Language,
+        "Plot of the movie is: " + response.data.Plot,
+        "Actors in the movie are: " + response.data.Actors,
+
+      ].join("\n\n");
+
+      //BONUS
+      // Append the movie data to log.txt, print movie data to the console
+      fs.appendFile("log.txt", movieInfo, function (err) {
+        if (err) throw err;
+        console.log(movieInfo);
+
+      }
+
+      );
     }
 
-  );
+  )
 }
 // bandsinTownAPI
 
@@ -80,22 +82,25 @@ var getConcertInfo = function () {
   //let command=process.argv[2];
   let search = process.argv.slice(3).join("+");
 
-  //console.log(command);
-  //console.log(search);
-
   // Then run a request with axios to the bandsintown API with the concert specified
   axios.get(`https://rest.bandsintown.com/artists/${search}/events?app_id=codingbootcamp`).then(
     function (response) {
-      console.log("Name of the venue is: " + response.data[0].venue.name);
-      console.log("Venue location is: " + response.data[1].venue.city);
-      console.log("Date of the Event is: " + moment(response.data[2].datetime).format("MM/DD/YYYY"));
+      var concertInfo = [
+        "Name of the venue is: " + response.data[0].venue.name,
+        "Venue location is: " + response.data[1].venue.city,
+        "Date of the Event is: " + moment(response.data[2].datetime).format("MM/DD/YYYY"),
 
+      ].join("\n\n")
 
+      //BONUS
+      // Append the concert data to log.txt, print concert data to the console
+      fs.appendFile("log.txt", concertInfo, function (err) {
+        if (err) throw err;
+        console.log(concertInfo);
+
+      });
     }
-
-  );
-
-}
+ )}
 
 //creating do-what-it-says command's function
 
@@ -113,9 +118,6 @@ var doWhatItSays = function () {
       return console.log(error);
     }
 
-    // We will then print the contents of data
-    //console.log(data);
-
     // Then split it by commas (to make it more readable)
     let dataArr = data.split(",");
 
@@ -125,9 +127,6 @@ var doWhatItSays = function () {
     } else if (dataArr.length == 1) {
       choose(dataArr[0]);
     }
-
-
-
 
   });
 
@@ -155,7 +154,6 @@ var choose = function (caseData, functionData) {
 var loadCommand = function (argOne, argTwo) {
   choose(argOne, argTwo);
 };
-
 
 //function takes the argument
 loadCommand(process.argv[2], process.argv.slice(3).join(" "));
